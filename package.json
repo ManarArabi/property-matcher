@@ -9,11 +9,13 @@
     "start": "node src/index.js",
     "start:dev": "nodemon src/index.js",
     "lint": "eslint .",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "commit": "cz"
   },
   "author": "manar-arabi",
   "license": "GNU",
   "dependencies": {
+    "commitizen": "^4.3.0",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "mongoose": "^6.3.3",
@@ -23,6 +25,7 @@
     "@babel/preset-env": "^7.17.12",
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.3.0",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.57.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.29.1",
@@ -33,5 +36,10 @@
     "nodemon": "^2.0.16",
     "supertest": "^6.2.3",
     "swagger-ui-express": "^4.4.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
