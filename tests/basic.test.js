@@ -4,7 +4,7 @@ describe('Actions endpoints integration tests', () => {
   beforeAll(async () => {
     const { MONGO_TEST_URL } = process.env
 
-    await mongoose.connect(MONGO_TEST_URL);
+    await mongoose.connect(MONGO_TEST_URL)
   })
 
   afterAll(async () => {

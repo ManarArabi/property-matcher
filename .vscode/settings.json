@@ -5,6 +5,7 @@
     "source.fixAll": "explicit",
     "source.fixAll.eslint": "explicit"
   },
+  "eslint.options": { "configFile": "eslint.config.js" },
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -12,7 +13,7 @@
     "typescriptreact",
     "vue"
   ],
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "cSpell.words": [
     "arabi",
     "manar",
