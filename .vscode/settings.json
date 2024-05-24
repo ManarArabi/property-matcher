@@ -2,11 +2,21 @@
   "eslint.enable": true,
   "editor.tabSize": 2,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll": "explicit",
+    "source.fixAll.eslint": "explicit"
   },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue"
+  ],
+  "editor.formatOnSave": false,
   "cSpell.words": [
     "arabi",
     "manar",
+    "openapi",
     "unmocked"
   ],
 }
