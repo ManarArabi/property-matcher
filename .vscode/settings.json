@@ -1,0 +1,12 @@
+{
+  "eslint.enable": true,
+  "editor.tabSize": 2,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "cSpell.words": [
+    "arabi",
+    "manar",
+    "unmocked"
+  ],
+}
