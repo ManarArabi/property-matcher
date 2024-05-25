@@ -1,8 +1,8 @@
-import { AreaUnits } from '../../../common/constants/area.js'
-import { PriceCurrency } from '../../../common/constants/price.js'
-import { PropertyType } from '../../../common/constants/property.js'
+import { AreaUnits } from "../../../common/constants/area.js"
+import { PriceCurrency } from "../../../common/constants/price.js"
+import { PropertyType } from "../../../common/constants/property.js"
 
-export const CreateAdRequestSchema = {
+export const CreatePropertyRequestBodySchema = {
   type: 'object',
   properties: {
     city: { type: 'string' },
@@ -31,13 +31,9 @@ export const CreateAdRequestSchema = {
   required: ['city', 'district', 'description', 'propertyType', 'price', 'area']
 }
 
-export const CreateAdResponseSchema = {
+export const CreatePropertyRequestReturnSchema = {
   type: 'object',
   properties: {
-    _id: { type: 'string' },
-    createdAt: { type: 'Date' },
-    createdBy: { type: 'string' },
-    refreshedAt: { type: 'Date' },
     city: { type: 'string' },
     district: { type: 'string' },
     description: { type: 'string' },
@@ -58,8 +54,20 @@ export const CreateAdResponseSchema = {
         unit: { type: 'string', enum: Object.values(AreaUnits) }
       },
       required: ['number', 'unit']
+    },
+
+    _id: {type: 'string'},
+    refreshedAt: {type: 'date'},
+    createdAt: {type: 'date'},
+    createdBy: {type: 'string'},
+
+    matches: {
+      type: 'array',
+      items: {
+        type: 'String'
+      }
     }
   },
 
-  required: ['city', 'district', 'description', 'propertyType', 'price', 'area', '_id', 'createdAt', 'refreshedAt', 'createdBy']
+  required: ['city', 'district', 'description', 'propertyType', 'price', 'area', '_id', 'matches', 'createdAt', 'createdBy', 'refreshedAt']
 }
