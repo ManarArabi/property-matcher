@@ -20,5 +20,24 @@ export const propertyRequestValidation = {
         unit: joi.string().valid(...Object.values(AreaUnits)).required()
       }).required().and('number', 'unit')
     }
+  },
+
+  updatePropertyRequest: {
+    params: {
+      id: joi.string().hex().length(24).required()
+    },
+
+    body: {
+      description: joi.string(),
+      price: joi.object({
+        amount: joi.number(),
+        currency: joi.string().valid(...Object.values(PriceCurrency))
+      }).and('amount', 'currency'),
+
+      area: joi.object({
+        number: joi.number(),
+        unit: joi.string().valid(...Object.values(AreaUnits))
+      }).and('number', 'unit')
+    }
   }
 }

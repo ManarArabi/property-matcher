@@ -16,4 +16,12 @@ router.post(
   propertyRequestController.createPropertyRequest
 )
 
+router.patch(
+  '/:id',
+  authenticate,
+  authorize(PropertyRequestAuthorization.updatePropertyRequest),
+  validateSchema(propertyRequestValidation.updatePropertyRequest),
+  propertyRequestController.updatePropertyRequest
+)
+
 export default router
