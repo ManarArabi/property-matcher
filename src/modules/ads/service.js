@@ -52,7 +52,8 @@ export const AdServices = {
       'price.amount': { $lte: price.amount + (price.amount * 0.1), $gte: price.amount - (price.amount * 0.1) },
       'price.currency': price.currency,
       'area.number': { $lte: area.number + (area.number * 0.1), $gte: area.number - (area.number * 0.1) },
-      'area.unit': area.unit
+      'area.unit': area.unit,
+      status: AdStatus.AVAILABLE
     }
 
     const matches = await Ads.distinct('_id', matchesPayload)
