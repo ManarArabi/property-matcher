@@ -1,2 +1,3 @@
-export const tags = [
-]
+export const tags = {
+  USERS: 'Users'
+}

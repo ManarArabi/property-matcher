@@ -12,7 +12,7 @@ export const swaggerDocument = {
   },
   host: `localhost:${process.env.PORT || 3000}`,
   basePath: '/',
-  tags,
+  tags: Object.values(tags),
   paths: moduleEndpointsDocumentation,
   schemes: ['http'],
   consumes: ['application/json'],

@@ -27,6 +27,5 @@ export const errorHandler = (error, req, res, next) => {
     response.message = 'Request body is not valid'
   }
 
-  console.error(error)
   return res.status(response.status).json(response)
 }

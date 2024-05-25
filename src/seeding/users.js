@@ -1,7 +1,7 @@
 import { config } from 'dotenv'
 import { UserRoles, UserStatus } from '../modules/users/model/constants.js'
 import { Users } from '../modules/users/model/schema.js'
-import { hashData } from '../common/utils/hashing.js'
+import { hashData } from '../common/utils/password.js'
 import Promise from 'bluebird'
 import { generateRandomEgyptianPhoneNumber } from '../common/fakers/phone-number.js'
 
