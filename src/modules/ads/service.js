@@ -1,3 +1,4 @@
+import { AdStatus } from './model/constants.js'
 import { Ads } from './model/schema.js'
 
 export const AdServices = {
@@ -22,7 +23,7 @@ export const AdServices = {
    * @returns {Promise<Ad>}
    */
   createAd: async ({ city, district, description, propertyType, price, area }, { _id: callerId }) => {
-    const ad = await Ads.create({ city, district, description, propertyType, price, area, createdBy: callerId })
+    const ad = await Ads.create({ city, district, description, propertyType, price, area, createdBy: callerId, status: AdStatus.AVAILABLE })
 
     return ad
   }

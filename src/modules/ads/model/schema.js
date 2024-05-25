@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import { PropertyType } from '../../../common/constants/property.js'
 import { PriceSchema } from '../../../common/schemas/price.js'
 import { areaSchema } from '../../../common/schemas/area.js'
+import { AdStatus } from './constants.js'
 
 const adsSchema = new mongoose.Schema({
   price: PriceSchema,
@@ -36,6 +37,13 @@ const adsSchema = new mongoose.Schema({
   refreshedAt: {
     type: Date,
     default: null
+  },
+
+  status: {
+    type: String,
+    enum: Object.values(AdStatus),
+    default: AdStatus.AVAILABLE,
+    required: true
   },
 
   createdAt: {
