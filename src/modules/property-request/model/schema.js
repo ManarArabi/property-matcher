@@ -50,4 +50,10 @@ const propertyRequestSchema = new mongoose.Schema({
   }
 })
 
+propertyRequestSchema.index({
+  city: 1,
+  district: 1,
+  propertyType: 1
+})
+
 export const PropertyRequest = mongoose.model('property-request', propertyRequestSchema)

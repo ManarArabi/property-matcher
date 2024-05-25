@@ -16,4 +16,12 @@ router.post(
   AdsController.createAd
 )
 
+router.get(
+  '/:id/property-requests/matches',
+  authenticate,
+  authorize(AdsAuthorization.getAdPropertyRequestsMatches),
+  validateSchema(AdsValidations.getAdPropertyRequests),
+  AdsController.getAdPropertyRequestMatches
+)
+
 export default router

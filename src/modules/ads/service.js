@@ -1,5 +1,12 @@
 import { AdStatus } from './model/constants.js'
 import { Ads } from './model/schema.js'
+import _ from 'lodash'
+import httpStatus from 'http-status'
+import { PropertyRequest } from '../property-request/model/schema.js'
+import HttpError from '../../common/http-error.js'
+import { UserRoles } from '../users/model/constants.js'
+
+const { NOT_FOUND, UNPROCESSABLE_ENTITY, FORBIDDEN } = httpStatus
 
 export const AdServices = {
   /**
@@ -44,7 +51,7 @@ export const AdServices = {
    *
    * @returns {Promise<mongoose.Types.ObjectId[]>}
    */
-  getMatchIds: async ({ city, district, propertyType, price, area }) => {
+  getMatchedAdIds: async ({ city, district, propertyType, price, area }) => {
     const matchesPayload = {
       city,
       district,
@@ -59,5 +66,64 @@ export const AdServices = {
     const matches = await Ads.distinct('_id', matchesPayload)
 
     return matches
+  },
+
+  /**
+   * It gets ad matched property requests
+   *
+   * @param {Object} args
+   * @param {String} args.adId
+   *
+   * @param {Object} paginationParams
+   * @param {Number} [paginationParams.skip = 0]
+   * @param {Number} [paginationParams.limit = 20]
+   *
+   * @param {Object} callerData
+   * @param {String} callerData.callerId
+   * @param {String} callerData.callerRole
+   *
+   * @returns {Promise<PropertyRequest[]>}
+   */
+  getAdsPropertyRequestsMatches: async ({ adId }, { skip = 0, limit = 20 } = {}, { callerId, callerRole }) => {
+    const ad = await Ads.findOne({ _id: adId }).lean()
+    if (_.isNil(ad)) {
+      throw new HttpError({ status: NOT_FOUND, message: 'there is no ad with this id' })
+    }
+
+    if (ad.status === AdStatus.EXPIRED) {
+      throw new HttpError({ status: UNPROCESSABLE_ENTITY, message: 'this ad is expired' })
+    }
+
+    if (callerRole === UserRoles.AGENT && String(ad.createdBy) !== callerId ) {
+      throw new HttpError({ status: FORBIDDEN, message: 'You are not allowed to do this action'})
+    }
+
+    const propertyRequests = await PropertyRequest.aggregate([
+      {
+        $match: {
+          city: ad.city,
+          district: ad.district,
+          propertyType: ad.propertyType,
+          'price.amount': { $lte: ad.price.amount + (ad.price.amount * 0.1), $gte: ad.price.amount - (ad.price.amount * 0.1) },
+          'price.currency': ad.price.currency,
+          'area.number': { $lte: ad.area.number + (ad.area.number * 0.1), $gte: ad.area.number - (ad.area.number * 0.1) },
+          'area.unit': ad.area.unit
+        }
+      },
+
+      {
+        $sort: { refreshedAt: -1 }
+      },
+
+      {
+        $skip: skip
+      },
+
+      {
+        $limit: limit
+      }
+    ])
+
+    return propertyRequests
   }
 }

@@ -55,22 +55,22 @@ export const PropertyRequestServices = {
   updatePropertyRequest: async ({ propertyRequestId, description, price, area }, { callerId }) => {
     const propertyRequest = await PropertyRequest.findOne({ _id: propertyRequestId }).lean()
     if (_.isNil(propertyRequest)) {
-      throw new HttpError({ status: NOT_FOUND, message: 'there is no property with this id' })
+      throw new HttpError({ status: NOT_FOUND, message: 'there is no property request with this id' })
     }
 
     if (String(callerId) !== String(propertyRequest.createdBy)) {
       throw new HttpError({ status: FORBIDDEN, message: 'There is no property with this id' })
     }
 
-    const matchesIds = await AdServices.getMatchIds({ 
-      propertyType: propertyRequest.propertyType, 
-      city: propertyRequest.city, 
-      district: propertyRequest.district, 
-      price: price || propertyRequest.price, 
-      area: area || propertyRequest.area 
+    const matchesIds = await AdServices.getMatchIds({
+      propertyType: propertyRequest.propertyType,
+      city: propertyRequest.city,
+      district: propertyRequest.district,
+      price: price || propertyRequest.price,
+      area: area || propertyRequest.area
     })
 
-    const updatePayload = _.omitBy({ description, price, area, matches: matchesIds }, _.isNil)
+    const updatePayload = _.omitBy({ description, price, area, matches: matchesIds, refreshedAt: new Date() }, _.isNil)
     await PropertyRequest.updateOne({ _id: propertyRequestId }, { $set: updatePayload })
   }
 }

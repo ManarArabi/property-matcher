@@ -1,6 +1,7 @@
 import { AreaUnits } from '../../../common/constants/area.js'
 import { PriceCurrency } from '../../../common/constants/price.js'
 import { PropertyType } from '../../../common/constants/property.js'
+import { CreatePropertyRequestReturnSchema } from '../../property-request/docs/schema.js'
 
 export const CreateAdRequestSchema = {
   type: 'object',
@@ -62,4 +63,9 @@ export const CreateAdResponseSchema = {
   },
 
   required: ['city', 'district', 'description', 'propertyType', 'price', 'area', '_id', 'createdAt', 'refreshedAt', 'createdBy']
+}
+
+export const GetAdPropertyRequestMatchesResponseSchema = {
+  type: 'array',
+  items: CreatePropertyRequestReturnSchema
 }
