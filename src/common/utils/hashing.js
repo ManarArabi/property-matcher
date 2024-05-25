@@ -13,4 +13,4 @@ export const hashData = async (data, SALT_WORK_FACTOR = 10) => {
   const salt = await bcrypt.genSalt(SALT_WORK_FACTOR)
 
   return bcrypt.hash(data, salt)
-};
+}
