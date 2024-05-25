@@ -16,5 +16,15 @@ export const swaggerDocument = {
   paths: moduleEndpointsDocumentation,
   schemes: ['http'],
   consumes: ['application/json'],
-  produces: ['application/json']
+  produces: ['application/json'],
+  components: {
+    securitySchemes: {
+      jwtAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description: 'Enter JWT token in the format: Bearer <token>'
+      }
+    }
+  }
 }

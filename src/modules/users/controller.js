@@ -1,4 +1,4 @@
-import { userServices } from './service.js'
+import { UserServices } from './service.js'
 
 import httpStatus from 'http-status'
 
@@ -10,7 +10,7 @@ export const userController = {
     } = req
 
     try {
-      const jwt = await userServices.login({ phone, password })
+      const jwt = await UserServices.login({ phone, password })
 
       res.status(OK).send({ jwt })
     } catch (err) {

@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-export const usersValidation = {
+export const UsersValidation = {
   login: {
     body: {
       phone: Joi.string().trim().required(),

@@ -7,7 +7,7 @@ import httpStatus from 'http-status'
 
 const { NOT_FOUND, UNAUTHORIZED } = httpStatus
 
-export const userServices = {
+export const UserServices = {
   /**
    * It returns jwt if the provided phone and password are valid
    *

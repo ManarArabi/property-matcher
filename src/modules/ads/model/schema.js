@@ -4,12 +4,6 @@ import { PriceSchema } from '../../../common/schemas/price.js'
 import { areaSchema } from '../../../common/schemas/area.js'
 
 const adsSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    trim: true,
-    required: true
-  },
-
   price: PriceSchema,
   area: areaSchema,
   city: {
@@ -41,8 +35,7 @@ const adsSchema = new mongoose.Schema({
 
   refreshedAt: {
     type: Date,
-    default: null,
-    required: true
+    default: null
   },
 
   createdAt: {
