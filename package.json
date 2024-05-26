@@ -10,7 +10,8 @@
     "start:dev": "nodemon src/index.js",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
-    "commit": "cz"
+    "commit": "cz",
+    "seed:db": "mongorestore --uri mongodb://localhost:27017/property-matcher3 --drop demo-data"
   },
   "author": "manar-arabi",
   "license": "GNU",
