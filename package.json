@@ -42,6 +42,7 @@
     "globals": "^15.3.0",
     "mocha": "^10.4.0",
     "nodemon": "^2.0.16",
+    "sinon": "^18.0.0",
     "swagger-ui-express": "^4.4.0"
   },
   "config": {

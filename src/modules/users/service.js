@@ -116,7 +116,7 @@ export const UserServices = {
       total: usersCount,
       page: skip === 0 ? 0 : limit / skip,
       limit,
-      hasNextPage: usersCount - (skip + limit) !== 0,
+      hasNextPage: usersCount - (skip + limit) > 0,
       hasPreviousPage: skip !== 0
     }
   }
