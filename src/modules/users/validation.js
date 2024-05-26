@@ -1,10 +1,17 @@
-import Joi from 'joi'
+import joi from 'joi'
 
 export const UsersValidation = {
   login: {
     body: {
-      phone: Joi.string().trim().required(),
-      password: Joi.string().trim().required()
+      phone: joi.string().trim().required(),
+      password: joi.string().trim().required()
+    }
+  },
+
+  getUsersStats: {
+    query: {
+      skip: joi.number().default(0),
+      limit: joi.number().default(20)
     }
   }
 }

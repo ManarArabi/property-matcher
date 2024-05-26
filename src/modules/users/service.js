@@ -33,5 +33,91 @@ export const UserServices = {
 
     const jwt = await generateJwt({ data: userData })
     return jwt
+  },
+
+  /**
+   * It gets users stats
+   * @param {Object} args
+   * @param {Number} [args.limit = 20]
+   * @param {Number} [args.skip =0]
+   *
+   */
+  getUsersStats: async ({ skip = 0, limit = 20 } = {}) => {
+    const [usersStats, usersCount] = await Promise.all([
+      Users.aggregate([
+        {
+          $lookup: {
+            from: 'ads',
+            localField: '_id',
+            foreignField: 'createdBy',
+            as: 'ads'
+          }
+        },
+        {
+          $lookup: {
+            from: 'property-requests',
+            localField: '_id',
+            foreignField: 'createdBy',
+            as: 'propertyRequests'
+          }
+        },
+        {
+          $addFields: {
+            adsCount: { $size: '$ads' },
+            requestsCount: {
+              $size: '$propertyRequests'
+            }
+          }
+        },
+        {
+          $unwind: {
+            path: '$ads',
+            preserveNullAndEmptyArrays: true
+          }
+        },
+        {
+          $unwind: {
+            path: '$propertyRequests',
+            preserveNullAndEmptyArrays: true
+          }
+        },
+        {
+          $group: {
+            _id: '$_id',
+            name: { $first: '$name' },
+            phone: { $first: '$phone' },
+            role: { $first: '$role' },
+            status: { $first: '$status' },
+            adsCount: { $first: '$adsCount' },
+            requestsCount: {
+              $first: '$requestsCount'
+            },
+            totalAdsAmount: {
+              $sum: '$ads.price.amount'
+            },
+            totalRequestsAmount: {
+              $sum: '$propertyRequests.price.amount'
+            }
+          }
+        },
+        {
+          $skip: skip
+        },
+        {
+          $limit: limit
+        }
+      ]),
+
+      Users.countDocuments()
+    ])
+
+    return {
+      data: usersStats,
+      total: usersCount,
+      page: skip === 0 ? 0 : limit / skip,
+      limit,
+      hasNextPage: usersCount - (skip + limit) !== 0,
+      hasPreviousPage: skip !== 0
+    }
   }
 }

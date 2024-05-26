@@ -16,5 +16,19 @@ export const userController = {
     } catch (err) {
       return next(err)
     }
+  },
+
+  getUsersStats: async (req, res, next) => {
+    const {
+      query: { limit = 20, skip = 0 }
+    } = req
+
+    try {
+      const usersStats = await UserServices.getUsersStats({ skip, limit })
+
+      res.status(OK).send(usersStats)
+    } catch (err) {
+      return next(err)
+    }
   }
 }

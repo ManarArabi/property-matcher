@@ -1,5 +1,5 @@
 import { tags } from '../../../../docs/tags.js'
-import { PaginationLimitParam } from '../../../common/swagger/parameters.js'
+import { PaginationLimitParam, PaginationSkipParam } from '../../../common/swagger/parameters.js'
 import { AdIdParameter } from './parameters.js'
 import { CreateAdRequestSchema, CreateAdResponseSchema, GetAdPropertyRequestMatchesResponseSchema } from './schema.js'
 
@@ -52,7 +52,7 @@ export const AdsEndpointsDocs = {
           jwtAuth: []
         }
       ],
-      parameters: [AdIdParameter, PaginationLimitParam, PaginationLimitParam],
+      parameters: [AdIdParameter, PaginationLimitParam, PaginationSkipParam],
 
       responses: {
         200: {

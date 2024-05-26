@@ -94,8 +94,8 @@ export const AdServices = {
       throw new HttpError({ status: UNPROCESSABLE_ENTITY, message: 'this ad is expired' })
     }
 
-    if (callerRole === UserRoles.AGENT && String(ad.createdBy) !== callerId ) {
-      throw new HttpError({ status: FORBIDDEN, message: 'You are not allowed to do this action'})
+    if (callerRole === UserRoles.AGENT && String(ad.createdBy) !== callerId) {
+      throw new HttpError({ status: FORBIDDEN, message: 'You are not allowed to do this action' })
     }
 
     const propertyRequests = await PropertyRequest.aggregate([

@@ -27,7 +27,7 @@ export const AdsController = {
     } = req
 
     try {
-      const propertyRequests = await AdServices.getAdsPropertyRequestsMatches({ adId }, {skip ,limit}, {callerId, callerRole})
+      const propertyRequests = await AdServices.getAdsPropertyRequestsMatches({ adId }, { skip, limit }, { callerId, callerRole })
 
       res.status(OK).send(propertyRequests, { skip, limit }, { callerId })
     } catch (err) {
