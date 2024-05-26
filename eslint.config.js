@@ -29,7 +29,7 @@ export default [
     }
   },
   {
-    files: ['**/*.test.js'], // Apply Jest plugin to test files only
+    files: ['**/*.test.js'],
     plugins: {
       jest: pluginJest
     },
